@@ -1,0 +1,47 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: s3fs
+  namespace: default
+  labels:
+    k8s-app: s3fs
+  annotations: {}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: s3fs
+  template:
+    metadata:
+      name: s3fs
+      labels:
+        k8s-app: s3fs
+    spec:
+      containers:
+      - name: s3fs
+        image: blenderfox/s3fs
+        env:
+        - name: S3_BUCKET
+          value: opsfleet-test-bucket
+        - name: S3_REGION
+          value: us-west-2
+        - name: AWSACCESSKEYID
+          value: TESTAccessKey
+        - name: AWSSECRETACCESSKEY
+          value: tesTAccessSecretKey
+        resources: {}
+        imagePullPolicy: Always
+        securityContext:
+          privileged: true
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      schedulerName: default-scheduler
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600
