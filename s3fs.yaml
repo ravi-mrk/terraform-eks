@@ -16,6 +16,8 @@ spec:
       name: s3fs
       labels:
         k8s-app: s3fs
+      annotations:
+        iam.amazonaws.com/role: default-oidc-aws-node
     spec:
       containers:
       - name: s3fs
@@ -25,10 +27,6 @@ spec:
           value: opsfleet-test-bucket
         - name: S3_REGION
           value: us-west-2
-        - name: AWSACCESSKEYID
-          value: TESTAccessKey
-        - name: AWSSECRETACCESSKEY
-          value: tesTAccessSecretKey
         resources: {}
         imagePullPolicy: Always
         securityContext:
