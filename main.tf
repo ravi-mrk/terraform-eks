@@ -35,7 +35,6 @@ module "eks" {
   cluster_name    = "eks-${var.cluster_name}-new"
   cluster_version = "1.19"
   subnets         = var.subnet_ids
-  #  subnets         = ["subnet-0f95623d2e17e4c6f", "subnet-06ca058ce63f8147f"] 
   vpc_id = var.vpc_id
 
   node_groups = {
