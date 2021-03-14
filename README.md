@@ -28,5 +28,11 @@ This repository contains terraform code needed for creating an EKS cluster in an
    
    ** NOTE: Change values of the S3_BUCKET, S3_REGION, AWSACCESSKEYID, AWSSECRETACCESSKEY
    in the s3fs.yaml file for accessing the s3 storage from the pod **
-   
    ```
+9. Exec into the pod and verify if the s3 bucket is really mounted
+    ```
+    KUBECONFIG=./kubeconfig_eks-opsfleet-test-new kubectl exec -it s3fs-6ffb54bf98-m4bc4 bash
+    
+    ls -al /mnt/bucket/.  ** You should see the s3 bucket mounted under this location as declared in the deployment manifest file**
+    ```
+   
